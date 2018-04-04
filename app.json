@@ -1,0 +1,7 @@
+{
+  "name": "Volunteer Portal Mock App",
+  "description": "A barebones Rails app to test end to end implementation",
+  "repository": "https://github.com/adam-hart/dummy_app",
+  "logo": "https://emojipedia-us.s3.amazonaws.com/thumbs/240/apple/129/fox-face_1f98a.png",
+  "keywords": ["rails", "dummmy"]
+}

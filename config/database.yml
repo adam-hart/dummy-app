@@ -1,0 +1,28 @@
+<% mysql = URI(ENV['DATABASE_URL'] || 'mysql2://root@127.0.0.1:3306/dummy_app') %>
+mysql: &MYSQL
+  adapter: mysql2
+  username: <%= mysql.user %>
+  host: <%= mysql.host %>
+  port: <%= mysql.port %>
+  password: <%= mysql.password %>
+  pool: <%= ENV['DB_POOL'] || 5 %>
+
+development: &development
+  <<: *MYSQL
+  database: dummy_app_development
+
+test:
+  <<: *MYSQL
+  database: dummy_app_test
+
+staging: &staging
+  adapter: mysql2
+  pool: <%= ENV['DB_POOL'] || 10 %>
+  host: <%= ENV['MYSQL_HOST'] %>
+  port: <%= ENV['MYSQL_PORT'] %>
+  username: <%= ENV['MYSQL_USER'] %>
+  password: <%= ENV['MYSQL_PASSWORD'] %>
+  database: <%= ENV['DATABASE'] %>
+
+production:
+  <<: *staging
