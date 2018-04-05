@@ -8,6 +8,9 @@
     "cleardb:ignite"
   ],
   "scripts": {
-    "postdeploy": "bundle exec rake db:migrate"
+    "postdeploy": [
+      "heroku config:set DATABASE_URL=DB_URL=\"$(heroku config | grep CLEARDB_DATABASE_URL | sed -n '/CLEARDB_DATABASE_URL/s/  */ /gp' | cut -d ' ' -f 2 | sed -e 's/mysql:/mysql2:/g')\"",
+      "bundle exec rake db:migrate"
+    ]
   }
 }
