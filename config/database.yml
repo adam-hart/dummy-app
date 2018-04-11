@@ -1,28 +1,20 @@
-<% mysql = URI(ENV['DATABASE_URL'] || 'mysql2://root@127.0.0.1:3306/dummy_app') %>
-mysql: &MYSQL
-  adapter: mysql2
-  username: <%= mysql.user %>
-  host: <%= mysql.host %>
-  port: <%= mysql.port %>
-  password: <%= mysql.password %>
-  pool: <%= ENV['DB_POOL'] || 5 %>
+# Postgresql
+common: &common
+  adapter: postgresql
+  port: 5432
+  username: <%= ENV['USER'] %>
+  password:
+  host: 127.0.0.1
+  pool: <%= ENV['RAILS_MAX_THREADS'] %>
+  timeout: 5000
 
-development: &development
-  <<: *MYSQL
-  database: dummy_app_development
+development:
+  <<: *common
+  database: samson_development
 
+# Warning: The database defined as "test" will be erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
 test:
-  <<: *MYSQL
-  database: dummy_app_test
-
-staging: &staging
-  adapter: mysql2
-  pool: <%= ENV['DB_POOL'] || 10 %>
-  host: <%= ENV['MYSQL_HOST'] %>
-  port: <%= ENV['MYSQL_PORT'] %>
-  username: <%= ENV['MYSQL_USER'] %>
-  password: <%= ENV['MYSQL_PASSWORD'] %>
-  database: <%= ENV['DATABASE'] %>
-
-production:
-  <<: *staging
+  <<: *common
+  database: samson_test<%= ENV['TEST_ENV_NUMBER'] %>

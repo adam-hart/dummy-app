@@ -5,11 +5,10 @@
   "logo": "https://emojipedia-us.s3.amazonaws.com/thumbs/240/apple/129/fox-face_1f98a.png",
   "keywords": ["rails", "dummmy"],
   "addons": [
-    "cleardb:ignite"
+    "heroku-postgresql:hobby-dev"
   ],
   "scripts": {
     "postdeploy": [
-      "heroku config:set DATABASE_URL=DB_URL=\"$(heroku config | grep CLEARDB_DATABASE_URL | sed -n '/CLEARDB_DATABASE_URL/s/  */ /gp' | cut -d ' ' -f 2 | sed -e 's/mysql:/mysql2:/g')\"",
       "bundle exec rake db:migrate"
     ]
   }
